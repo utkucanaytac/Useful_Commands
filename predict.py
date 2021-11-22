@@ -1,84 +1,21 @@
 import tensorflow as tf
-from tensorflow.keras import backend as K
-import os
 import pandas as pd
 import numpy as np
-from pymongo import MongoClient
+from data_extract import data_read
+from model import get_ready_for_model
+from input_pipeline import y_degiscek
 
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-tf.random.set_seed(42)
-
-WINDOW_SIZE = 15
-HORIZON = 1
-K.clear_session()
-tf.get_logger().setLevel('INFO')
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
-
-WINDOW_SIZE = 15
-HORIZON = 1
-# Data Loading CSV
-prices = pd.read_csv("/Users/uca/PycharmProjects/MIS2/data/habbo.csv")
-# prices = prices.drop([prices.index[650]])
-habbo = prices.copy()
-habbo = habbo.rename(columns={'totalrevenue': 'value'})
-habbo = habbo.drop(['revenuedate'], axis=1)
-habbo['time'] = pd.date_range(start='1/1/2020', periods=len(habbo), freq='D')
-habbo = habbo.set_index('time')
-
-for i in range(WINDOW_SIZE):
-    habbo[f"value+{i + 1}"] = habbo["value"].shift(periods=i + 1)
-
-# Make features and labels
-x = habbo.dropna().drop("value", axis=1).to_numpy()
-y = habbo.dropna()["value"].to_numpy()
-
-# 1. Turn train into tensor Datasets
-train_features_dataset = tf.data.Dataset.from_tensor_slices(x)
-train_labels_dataset = tf.data.Dataset.from_tensor_slices(y)
-
-# 2. Combine features & labels
-train_dataset = tf.data.Dataset.zip((train_features_dataset, train_labels_dataset))
-
-# 3. Batch and prefetch for optimal performance
-BATCH_SIZE = 1024
-train_dataset = train_dataset.batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
-
-import tensorflow as tf
-
-ensemble_models = []
-
-model1 = tf.keras.models.load_model("/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential")
-model2 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_1")
-model3 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_2")
-model4 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_3")
-model5 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_4")
-model6 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_5")
-model7 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_6")
-model8 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_7")
-model9 = tf.keras.models.load_model(
-    "/Users/uca/PycharmProjects/MIS2/ensemble_models/ensemble model_format sequential_8")
-
-ensemble_models.append(model1)
-ensemble_models.append(model2)
-ensemble_models.append(model3)
-ensemble_models.append(model4)
-ensemble_models.append(model5)
-ensemble_models.append(model6)
-ensemble_models.append(model7)
-ensemble_models.append(model8)
-ensemble_models.append(model9)
-
-# Create a function which uses a list of trained models to make and return a list of predictions
 liste = []
+WINDOW_SIZE = 15
+HORIZON = 1
+directory = "/Users/uca/PycharmProjects/MIS/ensemble_models"
+input_data = data_read("s3://misbucket-uca/habbo.csv")
 
+habbo = data_read("s3://misbucket-uca/habbo.csv")
+y = y_degiscek(input_data,15)
+
+ensemble_models = get_ready_for_model(directory)
+print(ensemble_models)
 
 def make_ensemble_preds(ensemble_models, last_window):
     for model in ensemble_models:
@@ -87,8 +24,7 @@ def make_ensemble_preds(ensemble_models, last_window):
         # print(preds)
         liste.append(preds)
 
-    return np.mean(liste,
-                   axis=0)  ####### can be taken as the mean of the point predictions from ensemble members to calculate upper lower bounds soon
+    return np.mean(liste,axis=0)  ####### can be taken as the mean of the point predictions from ensemble members to calculate upper lower bounds soon
 
 
 # 1. Create function to make predictions into the future
@@ -144,11 +80,11 @@ def get_future_dates(start_date, into_future, offset=1):
 
 # Last timestep of timesteps (currently in np.datetime64 format)
 last_timestep = habbo.index[-1]
-last_timestep
+
 
 next_time_steps = get_future_dates(start_date=last_timestep,
                                    into_future=INTO_FUTURE)
-next_time_steps, future_forecast
+
 dict(zip(next_time_steps, future_forecast))
 
 preds_last = np.reshape(liste, (7, 9))
@@ -178,17 +114,3 @@ lower, upper = get_upper_lower(preds=preds_last)
 d = {'Timestamp': next_time_steps, 'Future_Forecast': future_forecast, 'Lower_Bound': lower, 'Upper_Bound': upper}
 habbo_futured = pd.DataFrame(data=d)
 print(habbo_futured)
-
-# Connect to MongoDB
-client = MongoClient(
-    "mongodb+srv://uca_user:uca275790@miscluster.e0wxb.mongodb.net/MisDatabase?retryWrites=true&w=majority")
-db = client['MisDatabase']
-collection = db['Mis']
-print("db bağlantısı sağlandı")
-
-collection.delete_many({})
-
-### timstamp kontrol et, eğer varsa update et,
-# a.reset_index(level=0, inplace=True)
-
-collection.insert_many(habbo_futured.to_dict('records'))
