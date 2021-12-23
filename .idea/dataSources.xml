@@ -8,5 +8,12 @@
       <jdbc-url>mongodb+srv://miscluster.e0wxb.mongodb.net/MisDatabase</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="mis@192.168.10.5" uuid="75f55f4d-3fd7-43b5-890e-41ca14fd76c3">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://192.168.10.5:5432/mis</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
