@@ -1,4 +1,4 @@
-# test test test app
+# A simple Guide of GIT
 ##how to install app
 ###test
 
