@@ -1,6 +1,24 @@
-# A simple Guide for GIT
-## life saver git commands
+# Let's build the simplest and most usefull commands together
 
+
+# life saver unix commands
+
+clear
+pwd
+cd ..
+mkdir test
+rm -r test
+mv /Folder/Subfolder/test
+cat
+vim text.txt
+insert (i) tuşuna bas
+:q 
+:q!
+:wq
+
+
+
+# life saver git commands
 ```
   git init
   git status
@@ -22,5 +40,10 @@
   ssh-keygen
   cat~/.ssh/id_rsa.pub  bu da ssh kodunu alıyor sonra bunu alıp ssh kaydediceksin githuba
   
+  
+  eğer master master ise direk push yapabilirsin git push
+  vim readme.md 
+  i tuşuna bas 
+  orada doldur sonra esc sonra da :wq tuşu
   
 ```
