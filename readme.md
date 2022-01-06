@@ -3,6 +3,7 @@
 
 # life saver unix commands
 
+´´´
 clear
 pwd
 cd ..
@@ -15,7 +16,7 @@ insert (i) tuşuna bas
 :q 
 :q!
 :wq
-
+´´´
 
 
 # life saver git commands
