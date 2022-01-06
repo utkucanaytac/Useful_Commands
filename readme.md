@@ -37,6 +37,7 @@ insert (i) tuşuna bas
   git log --oneline
   git log --graph
   git rm --cached file.txt
+  git commit --amend -m "changed commit"
   
   ssh-keygen
   cat~/.ssh/id_rsa.pub  bu da ssh kodunu alıyor sonra bunu alıp ssh kaydediceksin githuba
