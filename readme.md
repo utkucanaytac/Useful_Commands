@@ -6,19 +6,40 @@
 ```
 clear
 ```
+```
 pwd
 ```
+```
 cd ..
+```
+```
 mkdir test
+```
+```
 rm -r test
+```
+```
 mv /Folder/Subfolder/test
+```
+```
 cat
+```
+```
 vim text.txt
+```
+```
 insert (i) tuşuna bas
+```
+```
 :q 
+```
+```
 :q!
+```
+```
 :wq
 ```
+
 
 
 # life saver git commands
