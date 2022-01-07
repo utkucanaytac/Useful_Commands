@@ -70,7 +70,7 @@ git help
 ```
 git config --global user.name "utku"
 ```
-```
+
 ```
 git status
 ```
