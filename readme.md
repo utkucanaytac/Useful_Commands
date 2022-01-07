@@ -5,7 +5,9 @@
 
 ```
 clear
+```
 pwd
+```
 cd ..
 mkdir test
 rm -r test
