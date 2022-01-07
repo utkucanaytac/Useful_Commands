@@ -3,12 +3,16 @@
 
 # life saver unix commands
 
+clear cmd promptline
 ```
 clear
 ```
+
+checks which directory you are in
 ```
 pwd
 ```
+
 ```
 cd ..
 ```
