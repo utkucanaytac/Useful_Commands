@@ -13,15 +13,20 @@ checks which directory you are in
 pwd
 ```
 
+Bir alt komut
 ```
 cd ..
 ```
+makes directory 
 ```
 mkdir test
 ```
+delete directory or dosya
 ```
 rm -r test
 ```
+
+move folder
 ```
 mv /Folder/Subfolder/test
 ```
