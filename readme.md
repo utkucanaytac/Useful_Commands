@@ -21,30 +21,37 @@ makes directory
 ```
 mkdir test
 ```
-delete directory or dosya
+delete directory or file
 ```
 rm -r test
 ```
 
 move folder
 ```
-mv /Folder/Subfolder/test
+mv /Folder/Subfolder/test /Folder/AnotherFolder
 ```
+to read content we use it.
 ```
-cat
+cat read.txt
 ```
+
+create file
 ```
 vim text.txt
 ```
 ```
-insert (i) tuşuna bas
+insert and press (i) 
 ```
+
+quits
 ```
 :q 
 ```
+quits without saving
 ```
 :q!
 ```
+saves and quits
 ```
 :wq
 ```
