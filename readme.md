@@ -59,68 +59,79 @@ saves and quits
 
 
 # life saver git commands
-```
-git init
-```
-```
-git status
-```
-```
-git add.
-```
-```
-git commit -m "first commit"
-```
-```
-git push -u origin master
-```
-```
-git checkout -b uca
-```
-```
-git --version
-```
+
+helps the commands of git
 ```
 git help
 ```
-```
-git config --global user.name "utku"
-```
 
+see the version of git
+```
+git --version
+```
+if you are into the project directory you can create git env by
+```
+git init
+```
+to see the status what is happening inside git 
 ```
 git status
 ```
+adds files to the Git index, which is a staging area for objects prepared to be commited
+```
+git add.
+```
+commits the files that have been added and creates a new revision with a log
+```
+git commit -m "first commit"
+```
+pushs files to the github
+```
+git push -u origin master
+```
+let you create and switch to a new branch. "b" stands for branch
+```
+git checkout -b uca
+```
+
+creates a user name 
+```
+git config --global user.name "utku"
+```
+shows the current branch
 ```
 git branch
 ```
+adds origin via https or ssh. (better configure ssh)
 ```
 git remote add origin https://....git ya da ssh olanı
 ```
+
+while in committing, you can see the past logs 
 ```
 git log
 ```
+check the commit message
 ```
 git log --oneline
 ```
+same as log
 ```
 git log --graph
 ```
+removes the file from staging area
 ```
 git rm --cached file.txt
 ```
+change the commit message
 ```
 git commit --amend -m "changed commit"
 ```
+creates ssh key
 ```
 ssh-keygen
 ```
+get the key generated and paste it to the github
 ```
-cat~/.ssh/id_rsa.pub  bu da ssh kodunu alıyor sonra bunu alıp ssh kaydediceksin githuba
-```
-  
-```
-eğer master master ise direk push yapabilirsin git push
-vim readme.md 
-i tuşuna bas 
-orada doldur sonra esc sonra da :wq tuşu
+cat~/.ssh/id_rsa.pub 
 ```
