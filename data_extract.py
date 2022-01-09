@@ -1,6 +1,6 @@
 import pandas as pd
 
-class data_input_pipeline():
+class data_input_pipeline:
     def __init__(self, location:str):
         self.location = location
 

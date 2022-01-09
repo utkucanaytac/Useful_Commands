@@ -1,7 +1,5 @@
 import tensorflow as tf
-from data_extract import data_read
 
-input_data = data_read("s3://misbucket-uca/habbo.csv")
 
 
 def input_pipeline(input_data,WINDOW_SIZE):
