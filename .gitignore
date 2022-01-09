@@ -6,7 +6,8 @@ __pycache__/
 database.ini
 ensemble_models
 data
-
+.gitignore
+.idea
 
 # C extensions
 *.so
