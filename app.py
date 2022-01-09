@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import pandas as pd
 from configparser import ConfigParser
 import psycopg2
@@ -59,10 +60,5 @@ if __name__ == '__main__':
     for keys in Poker_group_feed:
         print(keys)
         Poker_group_feed[keys].to_csv("/Users/uca/PycharmProjects/MIS/data/{}.csv".format(keys))
-
-
-
-
-
 
 
