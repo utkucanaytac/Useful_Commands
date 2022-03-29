@@ -152,3 +152,8 @@ git branch -u origin/master master
 git remote set-head origin -a
 
 ```
+
+'''
+pip3 freeze > requirements.txt
+
+'''
