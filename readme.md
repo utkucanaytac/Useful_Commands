@@ -133,7 +133,7 @@ ssh-keygen
 ```
 get the key generated and paste it to the github
 ```
-cat~/.ssh/id_rsa.pub 
+cat ~/.ssh/id_rsa.pub 
 ```
 
 remove the .idea folder from git
